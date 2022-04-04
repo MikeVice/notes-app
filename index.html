@@ -1,0 +1,141 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>notes app</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="table-responsive-lg">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="" scope="col">Name</th>
+                        <th scope="col">Craeted</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Content</th>
+                        <th scope="col">Dates</th>
+                        <th class="text-right" scope="col"><span><i class="bi bi-archive"></i> </span><span><i
+                                    class="bi bi-trash"></i></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="cell-collapse" scope="row"><i class="bi bi-cart"></i> Shopping list </th>
+                        <td>April 20, 2022</td>
+                        <td>Task</td>
+                        <td class="cell-collapse">At vero eos et accusamus et iusto odio dignissimos ducimus qui
+                            blanditiis praesentium</td>
+                        <td>03/5/2022, 05/5/2022</td>
+                        <td class="text-right"><span><i data-toggle="modal" data-target="#exampleModal" class="bi bi-pencil"></i></span> <span><i
+                                    class="bi bi-archive"></i></span> <span><i class="bi bi-trash"></i></span></td>
+                    </tr>
+                    <tr>
+                        <th class="cell-collapse" scope="row"><i class="bi bi-lightbulb"></i> What if</th>
+                        <td>April 21, 2022</td>
+                        <td>Random thougth</td>
+                        <td class="cell-collapse">Et harum quidem rerum facilis est et expedita distinctio</td>
+                        <td></td>
+                        <td class="text-right"><span><i class="bi bi-pencil"></i></span> <span><i
+                                    class="bi bi-archive"></i></span> <span><i class="bi bi-trash"></i></span></td>
+                    </tr>
+                    <tr>
+                        <th class="cell-collapse" scope="row"><i class="bi bi-gem"></i> New feature</th>
+                        <td>April 22, 2022</td>
+                        <td>Idea</td>
+                        <td class="cell-collapse">Nam libero tempore</td>
+                        <td></td>
+                        <td class="text-right"><span><i class="bi bi-pencil"></i></span> <span><i
+                                    class="bi bi-archive"></i></span> <span><i class="bi bi-trash"></i></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="button-wrapper">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Create note
+            </button>
+        </div>
+        <div class="table-responsive-lg">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="" scope="col">Note categore</th>
+                        <th scope="col">Active</th>
+                        <th scope="col">Archived</th>
+                     
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="cell-collapse" scope="row"><i class="bi bi-cart"></i> Task </th>
+                        <td>3</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <th class="cell-collapse" scope="row"><i class="bi bi-lightbulb"></i> Random thougth</th>
+                        <td>5</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th class="cell-collapse" scope="row"><i class="bi bi-gem"></i> Idea</th>
+                        <td>1</td>
+                        <td>6</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Name</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="formGroupExampleInput">Category</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Task</option>
+                                <option>Random thougth</option>
+                                <option>Idea</option>
+                              
+                              </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="formGroupExampleInput2">Content</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Content">
+                          </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- <i class="bi bi-archive-fill"></i> -->
+
+</body>
+
+</html>

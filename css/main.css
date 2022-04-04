@@ -1,0 +1,38 @@
+table {
+    border-collapse:separate; 
+    border-spacing: 0 0.5em;
+  }
+
+.thead-light {
+    border-radius: 5px;
+}
+
+.table tr {
+    border-radius: 20px;
+    background-color: #e7eaf5;
+}
+
+.table td, .table th {
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: none;
+}
+
+thead th:first-child {
+    padding-left: 30px;
+}
+
+.table .thead-light th {
+    color: #fff;
+    border-color: #dee2e6;
+    border: none;
+    background-color: #999999;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 50px;
+}
