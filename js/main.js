@@ -115,7 +115,7 @@ function displayNotes(source){
                     <td>${element.category}</td>
                     <td class="cell-collapse">${element.content.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</td>
                     <td>03/5/2022, 05/5/2022</td>
-                    <td class="text-right"><span onclick=editeNote(${index})><i data-toggle="modal" data-target="#exampleModal"  class="bi bi-pencil"></i></span> <span><i class="bi bi-archive"></i></span> <span onclick=deleteNote(${index})><i class="bi bi-trash"></i></span></td>
+                    <td class="text-right"><span onclick=editeNote(${index})><i data-toggle="modal" data-target="#exampleModal"  class="bi bi-pencil"></i></span> <span onclick=archiveNote(${index})><i class="bi bi-archive"></i></span> <span onclick=deleteNote(${index})><i class="bi bi-trash"></i></span></td>
                 </tr>
 			`;
 	});
@@ -139,11 +139,19 @@ function deleteNote(index){
 		notesObj = [];
 	}
 	else{
-		notesObj = JSON.parse(notesString).list;
+		if (archiveStatus != 0){
+            notesObj = JSON.parse(notesString).list;
+        } else {
+            notesObj = JSON.parse(notesString).archive;
+        }
 	}
 	
 	notesObj.splice(index,1);
-    allNotesObj.list = notesObj;
+    if (archiveStatus != 0){
+        allNotesObj.list = notesObj;
+    } else {
+        allNotesObj.archive = notesObj;
+    }
 	localStorage.setItem('notes',JSON.stringify(allNotesObj));
 	
 	displayNotes();
@@ -157,7 +165,11 @@ function editeNote(index){
 		notesObj = [];
 	}
 	else{
-		notesObj = JSON.parse(notesString).list;
+		if (archiveStatus != 0){
+            notesObj = JSON.parse(notesString).list;
+        } else {
+            notesObj = JSON.parse(notesString).archive;
+        }
 	}
 	var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
     myModal.show();
@@ -175,3 +187,43 @@ function editeNote(index){
     currIndex = index;
 }
 
+function archiveNote(index){
+	let notesObj;
+	let notesString = localStorage.getItem('notes');
+	
+	if(notesString == null){
+		notesObj = [];
+	}
+	else{
+		notesObj = JSON.parse(notesString);
+	}
+	if (archiveStatus != 0){
+        let tempObj = notesObj.list[index];
+        deleteNote(index);
+        notesString = localStorage.getItem('notes');
+        
+        if(notesString == null){
+            notesObj = [];
+        }
+        else{
+            notesObj = JSON.parse(notesString);
+        }
+        notesObj.archive.push(tempObj);
+    } else {
+        let tempObj = notesObj.archive[index];
+        deleteNote(index);
+        notesString = localStorage.getItem('notes');
+        
+        if(notesString == null){
+            notesObj = [];
+        }
+        else{
+            notesObj = JSON.parse(notesString);
+        }
+        notesObj.list.push(tempObj);
+    }
+    allNotesObj = notesObj;
+	localStorage.setItem('notes',JSON.stringify(notesObj));
+	
+	displayNotes(archiveStatus == 1 ? 0 : 1);
+}
