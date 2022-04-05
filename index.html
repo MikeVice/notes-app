@@ -21,7 +21,7 @@
                         <th scope="col">Category</th>
                         <th scope="col">Content</th>
                         <th scope="col">Dates</th>
-                        <th class="text-right" scope="col"><span><i class="bi bi-archive"></i> </span><span><i
+                        <th class="text-right" scope="col"><span id="archiveBtn" ><i class="bi bi-archive"></i> </span><span><i
                                     class="bi bi-trash"></i></span></th>
                     </tr>
                 </thead>
@@ -58,7 +58,7 @@
             </table>
         </div>
         <div class="button-wrapper">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" id="openBtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Create note
             </button>
         </div>
@@ -124,6 +124,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button id="addBtn" type="button" data-dismiss="modal" class="btn btn-primary">Save</button>
+                        <button id="edtBtn" type="button" data-dismiss="modal" class="btn btn-primary" style="display: none;">Save Ed</button>
                     </div>
                 </div>
             </div>
