@@ -25,9 +25,13 @@ let archiveStatus = 1;
 
 
 window.addEventListener('load',function(){
+    let notesString = localStorage.getItem('notes');
+    let notesObj = JSON.parse(notesString);
+    allNotesObj = notesObj;
     initCategory();
     displayNotes();
     updateStats();
+
 });
 
 archiveBtn.addEventListener('click',function(){
@@ -70,25 +74,53 @@ edtBtn.addEventListener('click',function(){
 		notesObj = [];
 	}
 	else{
-		notesObj = JSON.parse(notesString).list;
+		if (archiveStatus != 0){
+            notesObj = JSON.parse(notesString).list;
+        } else {
+            notesObj = JSON.parse(notesString).archive;
+        }
 	}
     let noteName = document.getElementById('noteName');
     let noteCategory = document.getElementById('noteCategory');
     let noteContent = document.getElementById('noteContent');
     let currentCategory = 0;
     for (let i = 0; i < categoryArr.length; i++){
-        if (noteCategory.value == categoryArr[i].name) currentCategory = categoryArr[i];
+        if (noteCategory.value == categoryArr[i].name){
+            currentCategory = categoryArr[i];
+            if (currentCategory != notesObj[currIndex].category.name){
+                if (archiveStatus != 0){
+                    categoryArr[i].active++;
+                } else {
+                    categoryArr[i].archive++;
+                }
+                for (let j = 0; j < categoryArr.length; j++){
+                    if (notesObj[currIndex].category.name == categoryArr[j].name){
+                        if (archiveStatus != 0){
+                            categoryArr[j].active--;
+                        } else {
+                            categoryArr[j].archive--;
+                        }
+                    }
+                }
+            }
+        } 
     }
-    let tempObj = { name: noteName.value, dateAdded: notesObj[currIndex].dateAdded, category: currentCategory, content: noteContent.value };
+    let tempObj = { name: noteName.value, dateAdded: notesObj[currIndex].dateAdded, category: currentCategory, content: noteContent.value, dates : dateDetector(noteContent.value)};
 	notesObj[currIndex]=tempObj;
-    allNotesObj.list = notesObj;
+    if (archiveStatus != 0){
+        allNotesObj.list = notesObj;
+    } else {
+        allNotesObj.archive = notesObj;
+    }
+    allNotesObj.stats = categoryArr;
     addBtn.style.display = "block";
     edtBtn.style.display = "none";
 	localStorage.setItem('notes',JSON.stringify(allNotesObj));
     noteName.value = "";
     noteCategory.value = "";
     noteContent.value = "";
-    displayNotes();
+    updateStats();
+    displayNotes(archiveStatus == 1 ? 0 : 1);
 });
 
 // below event listener will add user input into the local storage
@@ -165,7 +197,7 @@ function displayNotes(source){
                     <td>${element.category.name}</td>
                     <td class="cell-collapse">${element.content.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</td>
                     <td>${element.dates}</td>
-                    <td class="text-right"><span onclick=editeNote(${index})><i data-toggle="modal" data-target="#exampleModal"  class="bi bi-pencil"></i></span> <span onclick=archiveNote(${index})><i class="bi bi-archive"></i></span> <span onclick=deleteNote(${index})><i class="bi bi-trash"></i></span></td>
+                    <td class="text-right"><span onclick=editNote(${index})><i data-toggle="modal" data-target="#exampleModal"  class="bi bi-pencil"></i></span> <span onclick=archiveNote(${index})><i class="bi bi-archive"></i></span> <span onclick=deleteNote(${index})><i class="bi bi-trash"></i></span></td>
                 </tr>
 			`;
 	});
@@ -214,10 +246,10 @@ function deleteNote(index){
     allNotesObj.stats = categoryArr;
 	localStorage.setItem('notes',JSON.stringify(allNotesObj));
 	updateStats();
-	displayNotes();
+	displayNotes(archiveStatus == 1 ? 0 : 1);
 }
 
-function editeNote(index){
+function editNote(index){
 	let notesObj;
 	let notesString = localStorage.getItem('notes');
 	
@@ -241,7 +273,7 @@ function editeNote(index){
     let noteContent = document.getElementById('noteContent');
 
     noteName.value = notesObj[index].name;
-    noteCategory.value = notesObj[index].category;
+    noteCategory.value = notesObj[index].category.name;
     noteContent.value = notesObj[index].content;
 
     currIndex = index;
